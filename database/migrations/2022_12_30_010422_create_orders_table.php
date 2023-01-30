@@ -25,7 +25,9 @@ return new class extends Migration
            
             $table->unsignedBigInteger('payment_id');
  
-            $table->foreign('payment_id')->references('id')->on('payment');
+            $table->foreign('payment_id')->references('id')->on('payment')
+            ->constrained()->restrictOnDelete()->cascadeOnUpdate();
+            
             $table->foreignId('coupon_id')->constrained()->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
 

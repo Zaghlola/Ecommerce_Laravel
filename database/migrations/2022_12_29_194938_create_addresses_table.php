@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->json('street',255);
-            $table->json('building',255);
-            $table->json('floor',255);
-            $table->json('flat',255);
-            $table->json('notes',255)->nullable();
-            $table->enum('type',['HOME','WORK']);//json 
+            $table->string('street',255);
+            $table->string('building',255);
+            $table->string('floor',255);
+            $table->string('flat',255);
+            $table->string('notes',255)->nullable();
+            $table->enum('type',['HOME','WORK']);// this enum will translate in project not database 
             $table->foreignId('user_id')->constrained()->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignId('region')->constrained()->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();

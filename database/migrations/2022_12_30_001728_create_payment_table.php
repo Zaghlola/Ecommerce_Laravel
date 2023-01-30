@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
             $table->string('type');//enum
+            $table->boolean('status')->comment('1 => active ,0 => not active')->default(1);
             $table->timestamps();
         });
     }

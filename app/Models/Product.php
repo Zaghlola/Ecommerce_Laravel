@@ -32,4 +32,13 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+    public function offers(){
+        return $this->belongsToMany(Offer::class,'offer_product','product_id','offer_id')
+        ->withPivot('price_after_discount','discount');
+    }
+    public function specs()
+    {
+      return $this->belongsToMany(Spec::class,'product_spec','product_id','offer_id')
+      ->withPivot('value');
+    }
 }
