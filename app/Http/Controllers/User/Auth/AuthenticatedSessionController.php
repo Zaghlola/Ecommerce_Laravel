@@ -1,48 +1,74 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use App\Http\Controllers\AbstractAuth\Auth\AuthenticatedSessionController as AbstractAuthenticatedSessionController;
 
-class AuthenticatedSessionController extends Controller
+
+class AuthenticatedSessionController extends AbstractAuthenticatedSessionController
 {
-    /**
-     * Display the login view.
-     */
-    public function create(): View
-    {
-        return view('auth.login');
-    }
+   private $guard='web';
+   private $viewPrefix='user.';
+   private $routeNamePrefix='users.';
+  
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+   /**
+    * Get the value of guard
+    */ 
+   public function getGuard():string
+   {
+      return $this->guard;
+   }
 
-        $request->session()->regenerate();
+   /**
+    * Set the value of guard
+    *
+    * @return  self
+    */ 
+   public function setGuard($guard):void
+   {
+      $this->guard = $guard;
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+     
+   }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+   /**
+    * Get the value of viewPrefix
+    */ 
+   public function getViewPrefix():string
+   {
+      return $this->viewPrefix;
+   }
 
-        $request->session()->invalidate();
+   /**
+    * Set the value of viewPrefix
+    *
+    * @return  self
+    */ 
+   public function setViewPrefix($viewPrefix):void
+   {
+      $this->viewPrefix = $viewPrefix;
 
-        $request->session()->regenerateToken();
+     
+   }
 
-        return redirect('/');
-    }
+   /**
+    * Get the value of routeNamePrefix
+    */ 
+   public function getRouteNamePerfix():string
+   {
+      return $this->routeNamePrefix;
+   }
+
+   /**
+    * Set the value of routeNamePrefix
+    *
+    * @return  self
+    */ 
+   public function setRouteNamePerfix($routeNamePrefix):void
+   {
+      $this->routeNamePrefix = $routeNamePrefix;
+
+    
+   }
 }

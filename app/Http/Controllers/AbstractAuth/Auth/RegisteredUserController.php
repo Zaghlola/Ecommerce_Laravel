@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\AbstractAuth\Contracts;
 
+use App\Http\Controllers\AbstractAuth\Contracts\GuardInterface;
+use App\Http\Controllers\AbstractAuth\Contracts\RouteNamePerfixInterface;
+use App\Http\Controllers\AbstractAuth\Contracts\ViewPrefixInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -13,14 +16,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+abstract class RegisteredUserController extends Controller implements
+ViewPrefixInterface,
+GuardInterface,
+RouteNamePerfixInterface,
+ModelInterface
 {
     /**
      * Display the registration view.
      */
     public function create(): View
     {
-        return view('user.auth.register');
+        return view($this->getViewPrefix().'auth.register');
     }
 
     /**
@@ -32,8 +39,8 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'phone'=>['required','regex://','unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$this->getModel()::class],
+            'phone'=>['required','regex://','unique:'.$this->getModel()::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,8 +53,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::guard('web')->login($user);
+        Auth::guard($this->getGuard())->login($user);
 
-        return redirect()->route('users.dashboard');
+        return redirect()->route($this->getRouteNamePerfix().'dashboard');
     }
 }

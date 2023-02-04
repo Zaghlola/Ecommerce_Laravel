@@ -1,41 +1,74 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-use Illuminate\View\View;
+use App\Http\Controllers\AbstractAuth\Auth\ConfirmablePasswordController as AbstractConfirmablePasswordController;
 
-class ConfirmablePasswordController extends Controller
+
+class ConfirmablePasswordController extends AbstractConfirmablePasswordController
 {
+    private $guard='web';
+    private $viewPrefix='user.';
+    private $routeNamePrefix='users.';
+   
+ 
     /**
-     * Show the confirm password view.
-     */
-    public function show(): View
+     * Get the value of guard
+     */ 
+    public function getGuard():string
     {
-        return view('auth.confirm-password');
+       return $this->guard;
     }
-
+ 
     /**
-     * Confirm the user's password.
-     */
-    public function store(Request $request): RedirectResponse
+     * Set the value of guard
+     *
+     * @return  self
+     */ 
+    public function setGuard($guard):void
     {
-        if (! Auth::guard('web')->validate([
-            'email' => $request->user()->email,
-            'password' => $request->password,
-        ])) {
-            throw ValidationException::withMessages([
-                'password' => __('auth.password'),
-            ]);
-        }
-
-        $request->session()->put('auth.password_confirmed_at', time());
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+       $this->guard = $guard;
+ 
+      
+    }
+ 
+    /**
+     * Get the value of viewPrefix
+     */ 
+    public function getViewPrefix():string
+    {
+       return $this->viewPrefix;
+    }
+ 
+    /**
+     * Set the value of viewPrefix
+     *
+     * @return  self
+     */ 
+    public function setViewPrefix($viewPrefix):void
+    {
+       $this->viewPrefix = $viewPrefix;
+ 
+      
+    }
+ 
+    /**
+     * Get the value of routeNamePrefix
+     */ 
+    public function getRouteNamePerfix():string
+    {
+       return $this->routeNamePrefix;
+    }
+ 
+    /**
+     * Set the value of routeNamePrefix
+     *
+     * @return  self
+     */ 
+    public function setRouteNamePerfix($routeNamePrefix):void
+    {
+       $this->routeNamePrefix = $routeNamePrefix;
+ 
+     
     }
 }

@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Http\Controllers\AbstractAuth\Contracts\BrokerInterface;
+use App\Http\Controllers\AbstractAuth\Contracts\ViewPrefixInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
-class PasswordResetLinkController extends Controller
+abstract class PasswordResetLinkController extends Controller implements
+ViewPrefixInterface,
+BrokerInterface
+
 {
     /**
      * Display the password reset link request view.
      */
     public function create(): View
     {
-        return view('user.auth.forgot-password');
+        return view($this->getViewPrefix().'auth.forgot-password');
     }
 
     /**
@@ -32,8 +37,9 @@ class PasswordResetLinkController extends Controller
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::broker('users')->sendResetLink(
+        $status = Password::broker($this->getBroker())->sendResetLink(
             $request->only('email')
+
         );
 
         return $status == Password::RESET_LINK_SENT

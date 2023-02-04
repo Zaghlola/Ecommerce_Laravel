@@ -1,25 +1,73 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Http\Controllers\AbstractAuth\Auth\EmailVerificationNotificationController as AbstarctEmailVerificationNotificationController;
 
-class EmailVerificationNotificationController extends Controller
+class EmailVerificationNotificationController extends AbstarctEmailVerificationNotificationController
 {
+    private $guard='web';
+    private $viewPrefix='user.';
+    private $routeNamePrefix='users.';
+   
+ 
     /**
-     * Send a new email verification notification.
-     */
-    public function store(Request $request): RedirectResponse
+     * Get the value of guard
+     */ 
+    public function getGuard():string
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(RouteServiceProvider::HOME);
-        }
-
-        $request->user()->sendEmailVerificationNotification();
-
-        return back()->with('status', 'verification-link-sent');
+       return $this->guard;
+    }
+ 
+    /**
+     * Set the value of guard
+     *
+     * @return  self
+     */ 
+    public function setGuard($guard):void
+    {
+       $this->guard = $guard;
+ 
+      
+    }
+ 
+    /**
+     * Get the value of viewPrefix
+     */ 
+    public function getViewPrefix():string
+    {
+       return $this->viewPrefix;
+    }
+ 
+    /**
+     * Set the value of viewPrefix
+     *
+     * @return  self
+     */ 
+    public function setViewPrefix($viewPrefix):void
+    {
+       $this->viewPrefix = $viewPrefix;
+ 
+      
+    }
+ 
+    /**
+     * Get the value of routeNamePrefix
+     */ 
+    public function getRouteNamePerfix():string
+    {
+       return $this->routeNamePrefix;
+    }
+ 
+    /**
+     * Set the value of routeNamePrefix
+     *
+     * @return  self
+     */ 
+    public function setRouteNamePerfix($routeNamePrefix):void
+    {
+       $this->routeNamePrefix = $routeNamePrefix;
+ 
+     
     }
 }

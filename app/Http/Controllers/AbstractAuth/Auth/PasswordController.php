@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Http\Controllers\AbstractAuth\Contracts\GuardInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordController extends Controller
+abstract class PasswordController extends Controller implements
+GuardInterface
 {
     /**
      * Update the user's password.
@@ -20,7 +22,7 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
-        $request->user('web')->update([
+        $request->user($this->getGuard())->update([
             'password' => Hash::make($validated['password']),
         ]);
 
