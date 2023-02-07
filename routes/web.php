@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('test', [RegisteredUserController::class, 'store']);
 
 require __DIR__.'/users.auth.php';

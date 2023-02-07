@@ -2,43 +2,49 @@
 
 namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\View\View;
+use App\Http\Controllers\AbstractAuth\Auth\PasswordResetLinkController as AbstractPasswordResetLinkController;
 
-class PasswordResetLinkController extends Controller
+
+class PasswordResetLinkController extends AbstractPasswordResetLinkController
 {
+    private $broker="users";
+    private $viewPrefix="user.";
+
     /**
-     * Display the password reset link request view.
-     */
-    public function create(): View
+     * Get the value of broker
+     */ 
+    public function getBroker():string
     {
-        return view('user.auth.forgot-password');
+        return $this->broker;
     }
 
     /**
-     * Handle an incoming password reset link request.
+     * Set the value of broker
      *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+     * @return  self
+     */ 
+    public function setBroker($broker):void
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
+        $this->broker = $broker;
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::broker('users')->sendResetLink(
-            $request->only('email')
-        );
+        }
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+    /**
+     * Get the value of viewPrefix
+     */ 
+    public function getViewPrefix():string
+    {
+        return $this->viewPrefix;
     }
+
+    /**
+     * Set the value of viewPrefix
+     *
+     * @return  self
+     */ 
+    public function setViewPrefix($viewPrefix):void
+    {
+        $this->viewPrefix = $viewPrefix;
+
+        }
 }

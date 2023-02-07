@@ -2,52 +2,95 @@
 
 namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use App\Http\Controllers\AbstractAuth\Auth\RegisteredUserController as AbstractRegisteredUserController;
 
-class RegisteredUserController extends Controller
+
+
+class RegisteredUserController extends AbstractRegisteredUserController
 {
+    private $guard="web";
+    private $routeNamePrefix="users.";
+    private $viewPrefix="user.";
+    private $model='User';
+    
+
     /**
-     * Display the registration view.
-     */
-    public function create(): View
+     * Get the value of guard
+     */ 
+    public function getGuard():string
     {
-        return view('user.auth.register');
+        return $this->guard;
     }
 
     /**
-     * Handle an incoming registration request.
+     * Set the value of guard
      *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+     * @return  self
+     */ 
+    public function setGuard($guard):void
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'phone'=>['required','regex://','unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $this->guard = $guard;
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-        ]);
+        
+    }
 
-        event(new Registered($user));
+   /**
+     * Get the value of routeNamePrefix
+     */ 
+    public function getRouteNamePerfix():string
+    {
+       return $this->routeNamePrefix;
+    }
+ 
+    /**
+     * Set the value of routeNamePrefix
+     *
+     * @return  self
+     */ 
+    public function setRouteNamePerfix(string $routeNamePrefix):void
+    {
+       $this->routeNamePrefix = $routeNamePrefix;
+ 
+     
+    }
 
-        Auth::guard('web')->login($user);
+    /**
+     * Get the value of viewPrefix
+     */ 
+    public function getViewPrefix():string
+    {
+        return $this->viewPrefix;
+    }
 
-        return redirect()->route('users.dashboard');
+    /**
+     * Set the value of viewPrefix
+     *
+     * @return  self
+     */ 
+    public function setViewPrefix($viewPrefix):void
+    {
+        $this->viewPrefix = $viewPrefix;
+
+        
+    }
+
+    /**
+     * Get the value of model
+     */ 
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set the value of model
+     *
+     * @return  self
+     */ 
+    public function setModel($model):void
+    {
+        $this->model = $model;
+
+        
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\AbstractAuth\Auth;
 
 use App\Http\Controllers\AbstractAuth\Contracts\BrokerInterface;
 use App\Http\Controllers\AbstractAuth\Contracts\RouteNamePerfixInterface;

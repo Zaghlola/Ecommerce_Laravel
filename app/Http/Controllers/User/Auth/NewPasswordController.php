@@ -2,60 +2,71 @@
 
 namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use App\Http\Controllers\AbstractAuth\Auth\NewPasswordController as AbstractNewPasswordController;
 
-class NewPasswordController extends Controller
+
+class NewPasswordController extends AbstractNewPasswordController
 {
+    private $broker ="users";
+    private $routeNamePrefix="users.";
+    private $viewPrefix="user.";
+    
+
     /**
-     * Display the password reset view.
-     */
-    public function create(Request $request): View
+     * Get the value of broker
+     */ 
+    public function getBroker():string
     {
-        return view('user.auth.reset-password', ['request' => $request]);
+        return $this->broker;
     }
 
     /**
-     * Handle an incoming new password request.
+     * Set the value of broker
      *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+     * @return  self
+     */ 
+    public function setBroker($broker):void
     {
-        $request->validate([
-            'token' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $this->broker = $broker;
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
-        $status = Password::broker('users')->reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($request->password),
-                    'remember_token' => Str::random(60),
-                ])->save();
+    }
 
-                event(new PasswordReset($user));
-            }
-        );
+   /**
+     * Get the value of routeNamePrefix
+     */ 
+    public function getRouteNamePerfix():string
+    {
+       return $this->routeNamePrefix;
+    }
+ 
+    /**
+     * Set the value of routeNamePrefix
+     *
+     * @return  self
+     */ 
+    public function setRouteNamePerfix(string $routeNamePrefix):void
+    {
+       $this->routeNamePrefix = $routeNamePrefix;
+ 
+     
+    }
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('users.login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+    /**
+     * Get the value of viewPrefix
+     */ 
+    public function getViewPrefix():string
+    {
+        return $this->viewPrefix;
+    }
+
+    /**
+     * Set the value of viewPrefix
+     *
+     * @return  self
+     */ 
+    public function setViewPrefix($viewPrefix):void
+    {
+        $this->viewPrefix = $viewPrefix;
+
     }
 }

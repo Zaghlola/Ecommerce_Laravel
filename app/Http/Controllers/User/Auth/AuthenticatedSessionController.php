@@ -65,7 +65,7 @@ class AuthenticatedSessionController extends AbstractAuthenticatedSessionControl
     *
     * @return  self
     */ 
-   public function setRouteNamePerfix($routeNamePrefix):void
+   public function setRouteNamePerfix(string $routeNamePrefix):void
    {
       $this->routeNamePrefix = $routeNamePrefix;
 

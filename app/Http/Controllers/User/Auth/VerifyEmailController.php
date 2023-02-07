@@ -2,28 +2,48 @@
 
 namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\AbstractAuth\Auth\VerifyEmailController as AbstractVerifyEmailController;
 
-class VerifyEmailController extends Controller
-{
+
+
+class VerifyEmailController extends AbstractVerifyEmailController
+{   
+    private $guard="web";
+    private $routeNamePrefix="users.";
+     /**
+     * Get the value of guard
+     */ 
+    public function getGuard():string
+    {
+        return $this->guard;
+    }
+
     /**
-     * Mark the authenticated user's email address as verified.
-     */
-    public function __invoke(EmailVerificationRequest $request): RedirectResponse
-    { 
-        $route = route('users.dashboard').'?verified=1';
-        if ($request->user('web')->hasVerifiedEmail()) {
-            return redirect($route);
-        }
+     * Set the value of guard
+     *
+     * @return  self
+     */ 
+    public function setGuard($guard):void
+    {
+        $this->guard = $guard;        
+    }
 
-        if ($request->user('web')->markEmailAsVerified()) {
-            event(new Verified($request->user('web')));
-        }
-
-        return redirect($route);
+   /**
+     * Get the value of routeNamePrefix
+     */ 
+    public function getRouteNamePerfix():string
+    {
+       return $this->routeNamePrefix;
+    }
+ 
+    /**
+     * Set the value of routeNamePrefix
+     *
+     * @return  self
+     */ 
+    public function setRouteNamePerfix(string $routeNamePrefix):void
+    {
+       $this->routeNamePrefix = $routeNamePrefix;
+     
     }
 }

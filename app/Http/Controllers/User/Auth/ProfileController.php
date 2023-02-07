@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\AbstractAuth\Auth\ConfirmablePasswordController as AbstractConfirmablePasswordController;
+use App\Http\Controllers\AbstractAuth\Auth\ProfileController as AbstractProfileController;
 
-
-class ConfirmablePasswordController extends AbstractConfirmablePasswordController
+class ProfileController extends AbstractProfileController
 {
     private $guard='web';
     private $viewPrefix='user.';

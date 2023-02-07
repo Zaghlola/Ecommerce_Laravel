@@ -7,7 +7,7 @@ use App\Http\Controllers\AbstractAuth\Auth\EmailVerificationNotificationControll
 class EmailVerificationNotificationController extends AbstarctEmailVerificationNotificationController
 {
     private $guard='web';
-    private $viewPrefix='user.';
+   
     private $routeNamePrefix='users.';
    
  
@@ -24,32 +24,14 @@ class EmailVerificationNotificationController extends AbstarctEmailVerificationN
      *
      * @return  self
      */ 
-    public function setGuard($guard):void
+    public function setGuard(string $guard):void
     {
        $this->guard = $guard;
  
       
     }
  
-    /**
-     * Get the value of viewPrefix
-     */ 
-    public function getViewPrefix():string
-    {
-       return $this->viewPrefix;
-    }
- 
-    /**
-     * Set the value of viewPrefix
-     *
-     * @return  self
-     */ 
-    public function setViewPrefix($viewPrefix):void
-    {
-       $this->viewPrefix = $viewPrefix;
- 
-      
-    }
+   
  
     /**
      * Get the value of routeNamePrefix
@@ -64,7 +46,7 @@ class EmailVerificationNotificationController extends AbstarctEmailVerificationN
      *
      * @return  self
      */ 
-    public function setRouteNamePerfix($routeNamePrefix):void
+    public function setRouteNamePerfix(string $routeNamePrefix):void
     {
        $this->routeNamePrefix = $routeNamePrefix;
  
