@@ -62,7 +62,7 @@ Route::prefix('users')->name('users.')->group(function () {
     });
 
 
-    Route::middleware(['auth:web',/* 'verified'*/])->group(function () {
+    Route::middleware(['auth:web', /*'verified'*/])->group(function () {
 
         Route::get('/dashboard', function () {
             return view('dashboard');

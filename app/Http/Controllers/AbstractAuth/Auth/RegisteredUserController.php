@@ -39,11 +39,11 @@ ModelInterface
      */
     public function store(Request $request): RedirectResponse
     {
-        dd( $this->getModel());
+       // dd( $this->getModel());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$this->getModel() ::class],
-            'phone'=>['required','regex://','unique:'.$this->getModel()::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$this->getModel()],
+            'phone'=>['required','regex://','unique:'.$this->getModel()],
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
      
@@ -54,8 +54,8 @@ ModelInterface
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
+       // event(new Registered($user));
+// Registered::dispatch($user);
         Auth::guard($this->getGuard())->login($user);
 
         return redirect()->route($this->getRouteNamePerfix().'dashboard');

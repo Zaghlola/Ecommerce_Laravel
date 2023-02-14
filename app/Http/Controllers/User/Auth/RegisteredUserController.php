@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\AbstractAuth\Auth\RegisteredUserController as AbstractRegisteredUserController;
 
 
@@ -11,7 +12,7 @@ class RegisteredUserController extends AbstractRegisteredUserController
     private $guard="web";
     private $routeNamePrefix="users.";
     private $viewPrefix="user.";
-    private $model='User';
+    private $model=User::class;
     
 
     /**
