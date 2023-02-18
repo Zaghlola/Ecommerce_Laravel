@@ -62,10 +62,10 @@ Route::prefix('users')->name('users.')->group(function () {
     });
 
 
-    Route::middleware(['auth:web', /*'verified'*/])->group(function () {
+    Route::middleware(['auth:web', 'verified'])->group(function () {
 
         Route::get('/dashboard', function () {
-            return view('dashboard');
+            return view('user.dashboard');
         })->name('dashboard');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

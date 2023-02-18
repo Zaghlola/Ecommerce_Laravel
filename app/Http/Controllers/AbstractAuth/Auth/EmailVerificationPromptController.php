@@ -19,8 +19,8 @@ ViewPrefixInterface
      */
     public function __invoke(Request $request): RedirectResponse|View
     {
-        return $request->user($this->getGuard())->hasVerifiedEmail()
-                    ? redirect()->route('users.dashboard')
+        return $request->user($this->getGuard())->hasVerifiedEmail()        
+                    ? redirect()->route($this->getRouteNamePrefix() .'dashboard')
                     : view($this->getViewPrefix().'auth.verify-email');
     }
 }

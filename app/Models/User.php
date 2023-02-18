@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+//use Illuminate\Auth\Notifications\VerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\VerifyEmail;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -65,5 +67,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function coupons()
     {
         return $this->belongsToMany(Coupon::class,'coupon_user','user_id','coupon_id');
+    }
+    public function sendEmailVerificationNotification(){
+        return $this->notify(new VerifyEmail);
     }
 }

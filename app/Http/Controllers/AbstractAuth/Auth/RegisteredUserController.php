@@ -54,7 +54,7 @@ ModelInterface
             'password' => Hash::make($request->password),
         ]);
 
-       // event(new Registered($user));
+        event(new Registered($user));
 // Registered::dispatch($user);
         Auth::guard($this->getGuard())->login($user);
 
