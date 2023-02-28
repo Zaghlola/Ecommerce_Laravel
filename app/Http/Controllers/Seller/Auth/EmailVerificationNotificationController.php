@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\Seller\Auth;
 
-use App\Http\Controllers\AbstractAuth\Auth\ProfileController as AbstractProfileController;
+use App\Http\Controllers\AbstractAuth\Auth\EmailVerificationNotificationController as AbstarctEmailVerificationNotificationController;
 
-class ProfileController extends AbstractProfileController
+class EmailVerificationNotificationController extends AbstarctEmailVerificationNotificationController
 {
-    private $guard='web';
-    private $viewPrefix='user.';
-    private $routeNamePrefix='users.';
+    private $guard='seller';
+   
+    private $routeNamePrefix='sellers.';
    
  
     /**
@@ -31,25 +31,7 @@ class ProfileController extends AbstractProfileController
       
     }
  
-    /**
-     * Get the value of viewPrefix
-     */ 
-    public function getViewPrefix():string
-    {
-       return $this->viewPrefix;
-    }
- 
-    /**
-     * Set the value of viewPrefix
-     *
-     * @return  self
-     */ 
-    public function setViewPrefix(string $viewPrefix):void
-    {
-       $this->viewPrefix = $viewPrefix;
- 
-      
-    }
+   
  
     /**
      * Get the value of routeNamePrefix

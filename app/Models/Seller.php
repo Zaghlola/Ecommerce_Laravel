@@ -1,17 +1,28 @@
 <?php
 
 namespace App\Models;
+use Laravel\Sanctum\HasApiTokens;
 
+use App\Traits\SendEmailNotification;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Seller extends Model
+class Seller extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory;
-    protected $gaurded = [
-        'id',
-        'created_at',
-        'updated_at',
+    use HasApiTokens, HasFactory, Notifiable ,SendEmailNotification;
+    protected $fillable = [
+       'name',
+       'shop_name',
+       'password',
+       'phone',
+       'email',
+       'status',
+       'verification_code',
+       'email_verified_at',
+       'phone_verified_at',
+       'remember_token'
     ];
     public function products()
     {

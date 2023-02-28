@@ -21,3 +21,9 @@ Route::get('/', function () {
 Route::get('test', [RegisteredUserController::class, 'store']);
 
 require __DIR__.'/users.auth.php';
+require __DIR__.'/sellers.auth.php';
+Route::get('test', function () {
+    foreach(config('auth.guards') as $guard){
+        
+    }
+});

@@ -19,17 +19,17 @@ use App\Http\Controllers\AbstractAuth\Contracts\ViewPrefixInterface;
 use App\Http\Controllers\AbstractAuth\Contracts\RouteNamePerfixInterface;
 
 abstract class RegisteredUserController extends Controller implements
-ViewPrefixInterface,
-GuardInterface,
-RouteNamePerfixInterface,
-ModelInterface
+    ViewPrefixInterface,
+    GuardInterface,
+    RouteNamePerfixInterface,
+    ModelInterface
 {
     /**
      * Display the registration view.
      */
     public function create(): View
     {
-        return view($this->getViewPrefix().'auth.register');
+        return view($this->getViewPrefix() . 'auth.register');
     }
 
     /**
@@ -39,14 +39,14 @@ ModelInterface
      */
     public function store(Request $request): RedirectResponse
     {
-       // dd( $this->getModel());
+        // dd( $this->getModel());
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.$this->getModel()],
-            'phone'=>['required','regex://','unique:'.$this->getModel()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . $this->getModel()],
+            'phone' => ['required', 'regex://', 'unique:' . $this->getModel()],
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
-     
+
         $user = $this->getModel()::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -55,9 +55,9 @@ ModelInterface
         ]);
 
         event(new Registered($user));
-// Registered::dispatch($user);
+        // Registered::dispatch($user);
         Auth::guard($this->getGuard())->login($user);
 
-        return redirect()->route($this->getRouteNamePerfix().'dashboard');
+        return redirect()->route($this->getRouteNamePerfix() . 'dashboard');
     }
 }

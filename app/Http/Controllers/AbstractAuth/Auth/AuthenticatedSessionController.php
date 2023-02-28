@@ -31,7 +31,7 @@ GuardInterface
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->authenticate($this->getGuard());
 
         $request->session()->regenerate();
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\User\Auth;
+namespace App\Http\Controllers\Seller\Auth;
 
-use App\Http\Controllers\AbstractAuth\Auth\ProfileController as AbstractProfileController;
+use App\Http\Controllers\AbstractAuth\Auth\EmailVerificationPromptController as  AbstractAuthEmailVerificationPromptController;
 
-class ProfileController extends AbstractProfileController
+class EmailVerificationPromptController extends AbstractAuthEmailVerificationPromptController
 {
-    private $guard='web';
-    private $viewPrefix='user.';
-    private $routeNamePrefix='users.';
+    private $guard='seller';
+    private $viewPrefix='seller.';
+    private $routeNamePrefix='sellers.';
    
  
     /**
