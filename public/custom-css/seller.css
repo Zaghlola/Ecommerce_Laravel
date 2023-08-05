@@ -1,0 +1,173 @@
+*{
+    margin: 0;
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.bg-index{
+    background-image: url('https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg');
+    height:100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.bg-login{
+    background-image: url('https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg?w=1380&t=st=1677495591~exp=1677496191~hmac=3c3be44b0085ca4d198219aab33c1804986bee5dd982afa521c80067cda0e6b1');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.bg-register{
+    background-image: url('https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg?w=1380&t=st=1677495591~exp=1677496191~hmac=3c3be44b0085ca4d198219aab33c1804986bee5dd982afa521c80067cda0e6b1');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.navbar-fixed{
+    position: sticky;
+    z-index: 11000;
+    top: 0px;
+    transition: height 0.3s, background-color 0.3s;
+}
+
+.button-general {
+    cursor: pointer;
+    background-color: #222;
+    border-radius: 25px;
+    width: 100%;
+    height: 2rem;
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 1;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: all 0.4s;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow: visible;
+    touch-action: manipulation;
+}
+
+.button-general:hover {
+    background-color: rgb(87, 157, 237);
+    border-color: rgb(87, 157, 237);
+    color: #fff;
+}
+
+.title{
+    font-family: Poppins-Regular;
+    font-size: 24px;
+    line-height: 1.5;
+    color: #333;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.button-gmail {
+    cursor: pointer;
+    background-color: #222;
+    border-radius: 25px;
+    width: 100%;
+    height: 2rem;
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 2;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: all 0.4s;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow: visible;
+    touch-action: manipulation;
+}
+
+.button-gmail:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.button-facebook {
+    cursor: pointer;
+    background-color: #222;
+    border-radius: 25px;
+    width: 100%;
+    height: 2rem;
+    font-family: Poppins-Medium;
+    font-size: 15px;
+    line-height: 2;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: all 0.4s;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow: visible;
+    touch-action: manipulation;
+}
+
+.button-facebook:hover {
+    background-color: #328cec;
+    color: #fff;
+}
+
+.nav-treeview>.nav-item>.button.active {
+    background-color: rgba(255,255,255,.9);
+    color: #343a40;
+}
+
+.review {
+    margin: 0 auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #d4d4d4;
+    font-size: 20px;
+    background: #fff;
+}
+.review th, .review tr:nth-child(2n+2) {
+    background: #e7e7e7;
+}
+
+.review th, .review td {
+    padding: 20px 50px;
+}
+
+
+
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+}
+.stars-outer::before {
+    content: "\f006 \f006 \f006 \f006 \f006 ";
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: FontAwesome;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+.stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005 ";
+    color: #58d91d;
+}
