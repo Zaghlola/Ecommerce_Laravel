@@ -19,10 +19,15 @@
 						</a>			
 						@endif
 					
-
+						@foreach (LaravelLocalization::getSupportedlocales() as $lang => $value)
+						@if (!($lang == (App::currentLocale())))
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
+							{{Str::upper($lang)}}
 						</a>
+						@endif
+						
+						@endforeach
+						
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							USD
@@ -56,7 +61,7 @@
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
+								<a href="shoping-cart.html">__{{''}}</a>
 							</li>
 
 							<li>

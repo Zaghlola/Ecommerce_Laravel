@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function()
+{
 Route::get('test', [RegisteredUserController::class, 'store']);
 require __DIR__.'/frontend.php';
 require __DIR__.'/users.auth.php';
@@ -25,4 +32,5 @@ Route::get('test', function () {
     foreach(config('auth.guards') as $guard){
         
     }
+});
 });
