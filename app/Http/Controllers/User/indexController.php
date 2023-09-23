@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class indexController extends Controller
@@ -14,7 +15,7 @@ class indexController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
-    {
-        return view('user.dashboard');
+    { $products=Product::select('id','name','sale_price')->limit(16)->get();
+        return view('user.dashboard',compact('products'));
     }
 }

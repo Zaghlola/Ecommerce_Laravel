@@ -21,7 +21,7 @@
 					
 						@foreach (LaravelLocalization::getSupportedlocales() as $lang => $value)
 						@if (!($lang == (App::currentLocale())))
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a rel="alternate" hreflang="{{ $lang }}" href="{{ LaravelLocalization::getLocalizedURL($lang, null, [], true) }}" class="flex-c-m trans-04 p-lr-25">
 							{{Str::upper($lang)}}
 						</a>
 						@endif
