@@ -12,10 +12,10 @@ Route::prefix('sellers')->name('sellers.')->middleware('auth:seller','verified:s
         Route::post('/','store')->name('store');
         Route::get('/create','create')->name('create');
         Route::prefix('{product}')->group(function(){
-            // Route::put('/', 'update')->name('update');
-            // Route::delete('/', 'destroy')->name('destroy');
-            // Route::get('show/{slug?}', 'show')->name('show');
-            // Route::get('edit/{slug?}', 'edit')->name('edit');            
+            Route::put('/', 'update')->name('update');
+            Route::delete('/', 'destroy')->name('destroy');
+            Route::get('show/{slug?}', 'show')->name('show');
+            Route::get('edit/{slug?}', 'edit')->name('edit');            
         });
 
       

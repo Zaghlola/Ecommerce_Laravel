@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -14,7 +16,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products=Product::where('seller',Auth::guard('seller')->id())->get();
+       return(view("seller.products.index",compact('products')));
     }
 
     /**

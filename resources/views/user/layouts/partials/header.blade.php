@@ -24,14 +24,10 @@
 						<a rel="alternate" hreflang="{{ $lang }}" href="{{ LaravelLocalization::getLocalizedURL($lang, null, [], true) }}" class="flex-c-m trans-04 p-lr-25">
 							{{Str::upper($lang)}}
 						</a>
-						@endif
-						
+						@endif						
 						@endforeach
-						
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
+						<a style="text-decoration: none" class="py-2 px-4" href="{{ route('sellers.index') }}"> {{__('user.header.seller_account')}}
+                        </a>
 					</div>
 				</div>
 			</div>
@@ -105,9 +101,7 @@
 										<li><a style="text-decoration: none" href=""> {{__('user.header.orders')}} </a></li>
 										<form method="POST" action="{{ route('users.logout') }}">
 											@csrf
-											<li><a style="text-decoration: none" href="route('users.logout')"
-													onclick="event.preventDefault();
-													this.closest('form').submit();"> {{__('user.header.logout')}} </a>
+											<li><a style="text-decoration: none" href="route('users.logout')"	onclick="event.preventDefault();this.closest('form').submit();"> {{__('user.header.logout')}} </a>
 											</li>
 										</form>
 									@else

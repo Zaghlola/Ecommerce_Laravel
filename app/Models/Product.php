@@ -21,6 +21,9 @@ class Product extends Model
     function sale_price_with_Currency(){
         return $this->sale_price . __('user.shared.currency');
     }
+    function purchase_price_with_currency(){
+        return $this->purchase_price . __('user.shared.currency');
+    }
     public function category()
     {
        return $this->belongsTo(Category::class);
